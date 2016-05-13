@@ -30,6 +30,10 @@ class Registrar
 
     public function getInstance($class)
     {
+        if (!isset($this->di[$class])) {
+            throw new \Exception('instance undefined');
+        }
+
         return $this->di[$class];
     }
 

@@ -67,9 +67,15 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
     {
         $registrar = \Dxw\Iguana\Registrar::getSingleton();
 
-        $this->setExpectedException(\PHPUnit_Framework_Error_Notice::class);
+        try {
+            $registrar->getInstance('meow');
+        } catch (\Exception $e) {
+            $this->assertEquals('instance undefined', $e->getMessage());
 
-        $registrar->getInstance('meow');
+            return;
+        }
+
+        $this->fail('Expected \\Exception to be thrown.');
     }
 
     public function testDefaultInstances()
