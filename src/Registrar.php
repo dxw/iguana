@@ -7,7 +7,7 @@ class Registrar
     protected static $singleton;
     protected $di;
 
-    public function __construct()
+    protected function __construct()
     {
         $this->di = [];
 
@@ -30,6 +30,10 @@ class Registrar
 
     public function getInstance($class)
     {
+        if (!isset($this->di[$class])) {
+            throw new \Exception('instance undefined');
+        }
+
         return $this->di[$class];
     }
 
