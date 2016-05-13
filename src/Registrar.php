@@ -7,7 +7,7 @@ class Registrar
     protected static $singleton;
     protected $di;
 
-    public function __construct()
+    protected function __construct()
     {
         $this->di = [];
 
