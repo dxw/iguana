@@ -13,8 +13,6 @@ class Init
         $registrar = \Dxw\Iguana\Registrar::getSingleton();
         $registrar->di($dir.'/di.php');
 
-        require __DIR__.'/h.php';
-
         return $registrar;
     }
 }
