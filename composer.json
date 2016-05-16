@@ -12,5 +12,8 @@
         "psr-4": {
             "Dxw\\Iguana\\": "src/"
         }
+    },
+    "require": {
+        "aura/autoload": "^2.0"
     }
 }

@@ -4,9 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "52e707519a97247a414deab09b7e4c26",
-    "content-hash": "c758a2d0e4f09de3a82b4badaa296944",
-    "packages": [],
+    "hash": "980fc08d7d0db7211db4503e84fe8e2c",
+    "content-hash": "bfa0d49e5c2a3b781bd03fbcc2484b25",
+    "packages": [
+        {
+            "name": "aura/autoload",
+            "version": "2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auraphp/Aura.Autoload.git",
+                "reference": "c2a8f5dde204bbed34e194394046f7516eff04c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auraphp/Aura.Autoload/zipball/c2a8f5dde204bbed34e194394046f7516eff04c4",
+                "reference": "c2a8f5dde204bbed34e194394046f7516eff04c4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "aura": {
+                    "type": "library"
+                },
+                "branch-alias": {
+                    "dev-develop-2": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aura\\Autoload\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Aura.Autoload Contributors",
+                    "homepage": "https://github.com/auraphp/Aura.Autoload/contributors"
+                }
+            ],
+            "description": "Provides a PSR-4 compliant autoloader implementation.",
+            "homepage": "https://github.com/auraphp/Aura.Autoload",
+            "keywords": [
+                "PSR-4",
+                "SPL autoloader",
+                "autoload",
+                "autoloader",
+                "class loader"
+            ],
+            "time": "2015-03-27 19:34:08"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
