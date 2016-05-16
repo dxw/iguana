@@ -2,7 +2,7 @@
 
 An extensible theme and plugin framework for WordPress.
 
-Makes dependency injection easy, and makes it easy to register helper functions for use in your templates.
+Makes dependency injection easy.
 
 ## Theme templates that use Iguana
 
@@ -41,7 +41,7 @@ But eventually it will contain the code necessary to construct the dependency gr
 ```
 $registrar->addInstance('Dxw\\MyTheme\\Lib\\Whippet\\Layout', new \Dxw\MyTheme\Lib\Whippet\Layout());
 $registrar->addInstance('Dxw\\MyTheme\\Lib\\Whippet\\TemplateTags', new \Dxw\MyTheme\Lib\Whippet\TemplateTags(
-    $registrar->getInstance('Dxw\\Iguana\\Helpers')
+    $registrar->getInstance('Dxw\\MyTheme\\OtherClass')
 ));
 ```
 
@@ -49,7 +49,7 @@ $registrar->addInstance('Dxw\\MyTheme\\Lib\\Whippet\\TemplateTags', new \Dxw\MyT
 
 ### For your dependency-injected class structure
 
-Your classes can automatically register themselves:
+Your classes can automatically register themselves (or rather, indicate that they need to be registered):
 
 ```
 <?php
@@ -70,37 +70,6 @@ Any instance added to the registrar that implements `\Dxw\Iguana\Registerable` w
 This means you don't have to remember call the `register()` method somewhere after adding it to `app/di.php`.
 
 And moving the calls to `add_filter()`, 'register_xyz()`, etc out from the constructor makes it much easier to test.
-
-### For your template code
-
-Your classes can easily declare helper functions:
-
-```
-<?php
-
-namespace Dxw\MyTheme;
-
-class MyClass
-{
-    public function __construct(\Dxw\Iguana\Helpers $helpers)
-    {
-        $helpers->registerFunction('myFunc', [$this, 'myFunc']);
-    }
-
-    public function myFunc($a)
-    {
-        echo esc_html($a + 1);
-    }
-}
-```
-
-And to call this helper function from a template, simply:
-
-```
-<?php h()->myFunc(4) ?>
-```
-
-Using `h()` means that you only need to pollute the global namespace with one function. And `h()` is a lot shorter than typing out the full namespace.
 
 ### For your background processes and cron jobs
 
