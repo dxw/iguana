@@ -2,7 +2,6 @@
     "name": "dxw/iguana",
     "homepage": "https://github.com/dxw/iguana",
     "type": "library",
-    "version": "0.1.0",
     "license": "MIT",
     "require-dev": {
         "phpunit/phpunit": "4.8.*",
