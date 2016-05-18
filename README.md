@@ -2,7 +2,13 @@
 
 An extensible theme and plugin framework for WordPress.
 
-Makes dependency injection easy.
+## Components
+
+Iguana is split into several components. The idea is that **iguana** and **iguana-theme** are the two core libraries that will seldom change, while new features will be added to **iguana-extras** on a regular basis.
+
+- **iguana** is the library that allows themes and plugins to set up autoloading and dependency injection without nearly as much boilerplate code
+- [iguana-theme](https://github.com/dxw/iguana-theme) builds on iguana and allows themes to register helper functions and use template layouts
+- [iguana-extras](https://github.com/dxw/iguana-extras) builds on iguana and iguana-theme and provides a bunch of little components for plugins and themes
 
 ## Theme templates that use Iguana
 
@@ -39,9 +45,9 @@ Can start out blank:
 But eventually it will contain the code necessary to construct the dependency graph of your code, i.e.:
 
 ```
-$registrar->addInstance('Dxw\\MyTheme\\Lib\\Whippet\\Layout', new \Dxw\MyTheme\Lib\Whippet\Layout());
-$registrar->addInstance('Dxw\\MyTheme\\Lib\\Whippet\\TemplateTags', new \Dxw\MyTheme\Lib\Whippet\TemplateTags(
-    $registrar->getInstance('Dxw\\MyTheme\\OtherClass')
+$registrar->addInstance(Dxw\MyTheme\MyClass::class, new \Dxw\MyTheme\MyClass());
+$registrar->addInstance(Dxw\MyTheme\MyOtherClass::class, new \Dxw\MyTheme\MyOtherClass(
+    $registrar->getInstance(Dxw\MyTheme\MyClass::class)
 ));
 ```
 
