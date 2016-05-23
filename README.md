@@ -18,9 +18,9 @@ Iguana is split into several components. The idea is that **iguana** and **iguan
 
 Add the library to your theme:
 
-    $ composer require dxw/iguana=dev-master
+    $ composer require dxw/iguana
 
-Then simply add two files to your application:
+Then add two files to your application:
 
 `app/load.php`:
 
