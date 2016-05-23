@@ -18,9 +18,9 @@ Iguana is split into several components. The idea is that **iguana** and **iguan
 
 Add the library to your theme:
 
-    $ composer require dxw/iguana=dev-master
+    $ composer require dxw/iguana
 
-Then simply add two files to your application:
+Then add two files to your application:
 
 `app/load.php`:
 
@@ -79,4 +79,8 @@ And moving the calls to `add_filter()`, 'register_xyz()`, etc out from the const
 
 ### For your background processes and cron jobs
 
-If you're running a background process or cron job outside of WordPress, you can simply `$registrar = require 'path/to/load.php';` to load all the code in your theme/plugin. If you need to register it, you can do it piece-by-piece, or you can `$registrar->register();` to register it all at once.
+If you're running a background process or cron job outside of WordPress, you can `$registrar = require 'path/to/load.php';` to load all the code in your theme/plugin. If you need to register it, you can do it piece-by-piece, or you can `$registrar->register();` to register it all at once.
+
+## Licence
+
+[MIT](COPYING.md)
