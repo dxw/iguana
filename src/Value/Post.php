@@ -6,6 +6,6 @@ class Post extends ArrayBase
 {
     public function __construct()
     {
-        $this->value = $_POST;
+        $this->value = stripslashes_deep($_POST);
     }
 }

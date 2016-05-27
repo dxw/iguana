@@ -58,4 +58,13 @@ class Value_ArrayBase_Test extends PHPUnit_Framework_TestCase
 
         $this->fail('Expected \\Exception to be thrown.');
     }
+
+    public function testNoStripslashes()
+    {
+        $superglobal = new MyArrayValue([
+            'a' => 'a\\\\b',
+        ]);
+
+        $this->assertEquals('a\\\\b', $superglobal['a']);
+    }
 }

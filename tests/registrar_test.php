@@ -20,8 +20,21 @@ class MyUnregisterable
 
 class Registrar_Test extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        \WP_Mock::setUp();
+
+        \WP_Mock::wpFunction('stripslashes_deep', [
+            'return' => function ($array) {
+                return $array;
+            },
+        ]);
+    }
+
     public function tearDown()
     {
+        \WP_Mock::tearDown();
+
         $cls = new ReflectionClass(\Dxw\Iguana\Registrar::class);
 
         $property = $cls->getProperty('singleton');

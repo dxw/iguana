@@ -6,6 +6,6 @@ class Get extends ArrayBase
 {
     public function __construct()
     {
-        $this->value = $_GET;
+        $this->value = stripslashes_deep($_GET);
     }
 }
