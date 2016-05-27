@@ -11,14 +11,17 @@ class Registrar
     {
         $this->di = [];
 
+        $this->setNamespace('Dxw\\Iguana');
         $this->addInstance(\Dxw\Iguana\Value\Post::class, new \Dxw\Iguana\Value\Post());
         $this->addInstance(\Dxw\Iguana\Value\Get::class, new \Dxw\Iguana\Value\Get());
         $this->addInstance(\Dxw\Iguana\Value\Server::class, new \Dxw\Iguana\Value\Server());
         $this->addInstance(\Dxw\Iguana\Value\Cookie::class, new \Dxw\Iguana\Value\Cookie());
     }
 
-    public function di($path)
+    public function di(/* string */ $path, /* string */ $namespace)
     {
+        $this->setNamespace($namespace);
+
         call_user_func(function ($registrar) use ($path) {
             require $path;
         }, $this);
@@ -33,23 +36,29 @@ class Registrar
             $class = get_class($instance);
         }
 
-        $this->di[$class] = $instance;
+        $this->di[$this->namespace][$class] = $instance;
     }
 
     public function getInstance($class)
     {
-        if (!isset($this->di[$class])) {
-            throw new \Exception('instance undefined');
+        if (!isset($this->di[$this->namespace][$class])) {
+            if (isset($this->di['Dxw\\Iguana'][$class])) {
+                return $this->di['Dxw\\Iguana'][$class];
+            } else {
+                throw new \Exception('instance undefined');
+            }
         }
 
-        return $this->di[$class];
+        return $this->di[$this->namespace][$class];
     }
 
     public function register()
     {
-        foreach ($this->di as $instance) {
-            if ($instance instanceof \Dxw\Iguana\Registerable) {
-                $instance->register();
+        foreach ($this->di as $classes) {
+            foreach ($classes as $instance) {
+                if ($instance instanceof \Dxw\Iguana\Registerable) {
+                    $instance->register();
+                }
             }
         }
     }
@@ -61,5 +70,14 @@ class Registrar
         }
 
         return self::$singleton;
+    }
+
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+
+        if (!isset($this->di[$this->namespace])) {
+            $this->di[$this->namespace] = [];
+        }
     }
 }
