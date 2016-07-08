@@ -50,13 +50,16 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
         $this->assertSame($registrar1, $registrar2);
     }
 
-    //TODO: this causes fatal errors in PHP5 - uncomment when we migrate to PHP7
-    // public function testInstantiationErrors()
-    // {
-    //     $this->setExpectedException(\Error::class);
+    public function testInstantiationErrors()
+    {
+        // TODO: this causes fatal errors in PHP5
+        // marked as an incomplete test in the meantime
+        $this->markTestIncomplete();
 
-    //     new \Dxw\Iguana\Registrar();
-    // }
+        $this->setExpectedException(\Error::class);
+
+        new \Dxw\Iguana\Registrar();
+    }
 
     public function testDi()
     {
