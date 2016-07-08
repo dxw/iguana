@@ -123,6 +123,16 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
         $this->assertSame($instance, $registrar->getInstance('123'));
     }
 
+    public function testAddInstanceShorthand()
+    {
+        $registrar = \Dxw\Iguana\Registrar::getSingleton();
+        $instance = new \MyUnregisterable();
+
+        $registrar->addInstance($instance);
+
+        $this->assertSame($instance, $registrar->getInstance('MyUnregisterable'));
+    }
+
     public function testRegisterCallsRegisterable()
     {
         $registrar = \Dxw\Iguana\Registrar::getSingleton();

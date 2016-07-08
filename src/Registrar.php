@@ -24,8 +24,15 @@ class Registrar
         }, $this);
     }
 
-    public function addInstance($class, $instance)
+    public function addInstance($class, $instance=null)
     {
+        // Shorthand
+        // ->addInstance(new \MyClass());
+        if ($instance === null && gettype($class) === 'object') {
+            $instance = $class;
+            $class = get_class($instance);
+        }
+
         $this->di[$class] = $instance;
     }
 
