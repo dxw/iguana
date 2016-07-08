@@ -2,9 +2,15 @@
 
 class MyArrayValue extends \Dxw\Iguana\Value\ArrayBase
 {
-    public function __construct(array $value)
+    public static function make(array $value)
     {
-        $this->value = $value;
+        $instance = new \MyArrayValue();
+        $instance->value = $value;
+        return $instance;
+    }
+
+    protected function getDefault()
+    {
     }
 }
 
@@ -12,7 +18,7 @@ class Value_ArrayBase_Test extends PHPUnit_Framework_TestCase
 {
     public function testOffsetExists()
     {
-        $superglobal = new MyArrayValue([
+        $superglobal = \MyArrayValue::make([
             'a' => 'b',
         ]);
 
@@ -22,7 +28,7 @@ class Value_ArrayBase_Test extends PHPUnit_Framework_TestCase
 
     public function testOffsetGet()
     {
-        $superglobal = new MyArrayValue([
+        $superglobal = \MyArrayValue::make([
             'a' => 'b',
         ]);
 
@@ -31,7 +37,7 @@ class Value_ArrayBase_Test extends PHPUnit_Framework_TestCase
 
     public function testOffsetSet()
     {
-        $superglobal = new MyArrayValue([]);
+        $superglobal = \MyArrayValue::make([]);
 
         try {
             $superglobal['a'] = 'b';
@@ -46,7 +52,7 @@ class Value_ArrayBase_Test extends PHPUnit_Framework_TestCase
 
     public function testOffsetUnset()
     {
-        $superglobal = new MyArrayValue([]);
+        $superglobal = \MyArrayValue::make([]);
 
         try {
             unset($superglobal['a']);
@@ -61,10 +67,19 @@ class Value_ArrayBase_Test extends PHPUnit_Framework_TestCase
 
     public function testNoStripslashes()
     {
-        $superglobal = new MyArrayValue([
+        $superglobal = \MyArrayValue::make([
             'a' => 'a\\\\b',
         ]);
 
         $this->assertEquals('a\\\\b', $superglobal['a']);
+    }
+
+    public function testPassingToConstructor()
+    {
+        $superglobal = new \MyArrayValue([
+            'z' => 'a\\\\b',
+        ]);
+
+        $this->assertEquals('a\\\\b', $superglobal['z']);
     }
 }

@@ -16,5 +16,4 @@ install:
   - composer --no-interaction install
 script:
   - vendor/bin/phpunit
-  - php-cs-fixer fix --dry-run -v --diff src
-  - php-cs-fixer fix --dry-run -v --diff tests
+  - php-cs-fixer fix --dry-run -v --diff

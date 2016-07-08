@@ -103,6 +103,14 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
             \Dxw\Iguana\Value\Get::class,
             $registrar->getInstance(\Dxw\Iguana\Value\Get::class)
         );
+        $this->assertInstanceOf(
+            \Dxw\Iguana\Value\Server::class,
+            $registrar->getInstance(\Dxw\Iguana\Value\Server::class)
+        );
+        $this->assertInstanceOf(
+            \Dxw\Iguana\Value\Cookie::class,
+            $registrar->getInstance(\Dxw\Iguana\Value\Cookie::class)
+        );
     }
 
     public function testAddInstance()

@@ -2,10 +2,10 @@
 
 namespace Dxw\Iguana\Value;
 
-class Post extends ArrayBase
+class Server extends ArrayBase
 {
     protected function getDefault()
     {
-        return stripslashes_deep($_POST);
+        return stripslashes_deep($_SERVER);
     }
 }
