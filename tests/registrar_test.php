@@ -84,11 +84,11 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(
             \Dxw\Iguana\Value\Post::class,
-            $registrar->getInstance('Dxw\\Iguana\\Value\\Post')
+            $registrar->getInstance(\Dxw\Iguana\Value\Post::class)
         );
         $this->assertInstanceOf(
             \Dxw\Iguana\Value\Get::class,
-            $registrar->getInstance('Dxw\\Iguana\\Value\\Get')
+            $registrar->getInstance(\Dxw\Iguana\Value\Get::class)
         );
     }
 

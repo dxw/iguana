@@ -11,8 +11,8 @@ class Registrar
     {
         $this->di = [];
 
-        $this->addInstance('Dxw\\Iguana\\Value\\Post', new \Dxw\Iguana\Value\Post());
-        $this->addInstance('Dxw\\Iguana\\Value\\Get', new \Dxw\Iguana\Value\Get());
+        $this->addInstance(\Dxw\Iguana\Value\Post::class, new \Dxw\Iguana\Value\Post());
+        $this->addInstance(\Dxw\Iguana\Value\Get::class, new \Dxw\Iguana\Value\Get());
     }
 
     public function di($path)
