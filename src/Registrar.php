@@ -13,6 +13,8 @@ class Registrar
 
         $this->addInstance(\Dxw\Iguana\Value\Post::class, new \Dxw\Iguana\Value\Post());
         $this->addInstance(\Dxw\Iguana\Value\Get::class, new \Dxw\Iguana\Value\Get());
+        $this->addInstance(\Dxw\Iguana\Value\Server::class, new \Dxw\Iguana\Value\Server());
+        $this->addInstance(\Dxw\Iguana\Value\Cookie::class, new \Dxw\Iguana\Value\Cookie());
     }
 
     public function di($path)
