@@ -12,10 +12,10 @@ class Registrar
         $this->di = [];
 
         $this->setNamespace('Dxw\\Iguana');
-        $this->addInstance(\Dxw\Iguana\Value\Post::class, new \Dxw\Iguana\Value\Post());
-        $this->addInstance(\Dxw\Iguana\Value\Get::class, new \Dxw\Iguana\Value\Get());
-        $this->addInstance(\Dxw\Iguana\Value\Server::class, new \Dxw\Iguana\Value\Server());
-        $this->addInstance(\Dxw\Iguana\Value\Cookie::class, new \Dxw\Iguana\Value\Cookie());
+        $this->addInstance(new \Dxw\Iguana\Value\Post());
+        $this->addInstance(new \Dxw\Iguana\Value\Get());
+        $this->addInstance(new \Dxw\Iguana\Value\Server());
+        $this->addInstance(new \Dxw\Iguana\Value\Cookie());
     }
 
     public function di(/* string */ $path, /* string */ $namespace)
