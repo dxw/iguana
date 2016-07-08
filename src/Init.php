@@ -11,7 +11,7 @@ class Init
         $loader->addPrefix($namespace, $dir);
 
         $registrar = \Dxw\Iguana\Registrar::getSingleton();
-        $registrar->di($dir.'/di.php');
+        $registrar->di($dir.'/di.php', $namespace);
 
         return $registrar;
     }

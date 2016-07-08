@@ -45,8 +45,8 @@ Can start out blank:
 But eventually it will contain the code necessary to construct the dependency graph of your code, i.e.:
 
 ```
-$registrar->addInstance(Dxw\MyTheme\MyClass::class, new \Dxw\MyTheme\MyClass());
-$registrar->addInstance(Dxw\MyTheme\MyOtherClass::class, new \Dxw\MyTheme\MyOtherClass(
+$registrar->addInstance(new \Dxw\MyTheme\MyClass());
+$registrar->addInstance(new \Dxw\MyTheme\MyOtherClass(
     $registrar->getInstance(Dxw\MyTheme\MyClass::class)
 ));
 ```

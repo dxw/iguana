@@ -50,13 +50,16 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
         $this->assertSame($registrar1, $registrar2);
     }
 
-    //TODO: this causes fatal errors in PHP5 - uncomment when we migrate to PHP7
-    // public function testInstantiationErrors()
-    // {
-    //     $this->setExpectedException(\Error::class);
+    public function testInstantiationErrors()
+    {
+        // TODO: this causes fatal errors in PHP5
+        // marked as an incomplete test in the meantime
+        $this->markTestIncomplete();
 
-    //     new \Dxw\Iguana\Registrar();
-    // }
+        $this->setExpectedException(\Error::class);
+
+        new \Dxw\Iguana\Registrar();
+    }
 
     public function testDi()
     {
@@ -70,10 +73,30 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
         $called = 0;
         $instance = null;
 
-        $registrar->di($file);
+        $registrar->di($file, 'My\\Namespace');
 
         $this->assertEquals(1, $called);
         $this->assertSame($registrar, $instance);
+    }
+
+    public function testDiMixedNamespaces()
+    {
+        $registrar = \Dxw\Iguana\Registrar::getSingleton();
+
+        $file1 = \org\bovigo\vfs\vfsStream::setup()->url().'/di1.php';
+        $file2 = \org\bovigo\vfs\vfsStream::setup()->url().'/di2.php';
+
+        file_put_contents($file1, '<?php $registrar->addInstance("x", 1);');
+        file_put_contents($file2, '<?php $registrar->addInstance("x", 2);');
+
+        $registrar->di($file1, 'NS1');
+        $registrar->di($file2, 'NS2');
+
+        $this->assertEquals(2, $registrar->getInstance('x'));
+
+        $registrar->setNamespace('NS1');
+
+        $this->assertEquals(1, $registrar->getInstance('x'));
     }
 
     public function testGetInstanceUndefined()
@@ -110,6 +133,22 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(
             \Dxw\Iguana\Value\Cookie::class,
             $registrar->getInstance(\Dxw\Iguana\Value\Cookie::class)
+        );
+    }
+
+    public function testDefaultInstancesInDifferentNamespace()
+    {
+        $registrar = \Dxw\Iguana\Registrar::getSingleton();
+
+        $registrar->setNamespace('meow');
+
+        $this->assertInstanceOf(
+            \Dxw\Iguana\Value\Post::class,
+            $registrar->getInstance('Dxw\\Iguana\\Value\\Post')
+        );
+        $this->assertInstanceOf(
+            \Dxw\Iguana\Value\Get::class,
+            $registrar->getInstance('Dxw\\Iguana\\Value\\Get')
         );
     }
 
