@@ -13,6 +13,7 @@
         }
     },
     "require": {
-        "aura/autoload": "^2.0"
+        "aura/autoload": "^2.0",
+        "10up/wp_mock": "dev-master"
     }
 }
