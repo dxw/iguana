@@ -1,8 +1,4 @@
 <?php
 
-return \Symfony\CS\Config\Config::create()
-->level(\Symfony\CS\FixerInterface::PSR2_LEVEL)
-->finder(
-    \Symfony\CS\Finder\DefaultFinder::create()
-    ->in(__DIR__)
-);
+$finder = \PhpCsFixer\Finder::create()->in(__DIR__);
+return \PhpCsFixer\Config::create()->setFinder($finder);
