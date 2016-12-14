@@ -20,9 +20,14 @@ Add the library to your theme:
 
     $ composer require dxw/iguana
 
-Then add two files to your application:
+Add these two lines to `template/functions.php` (modify appropriately if `functions.php` isn't in a subdirectory):
 
-`app/load.php`:
+```
+$registrar = require __DIR__.'/../app/load.php';
+$registrar->register();
+```
+
+Add a new file called `app/load.php`:
 
 ```
 <?php
@@ -34,9 +39,9 @@ return \Dxw\Iguana\Init::init(__DIR__, 'Dxw\\MyTheme');
 
 (Replace `Dxw\\MyTheme` with the namespace of your own application.)
 
-`app/di.php`:
+Add a new file called `app/di.php`:
 
-Can start out blank:
+It can start out blank:
 
 ```
 <?php
