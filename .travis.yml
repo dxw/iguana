@@ -5,15 +5,12 @@ git:
 cache:
   directories:
     - vendor
-    - $HOME/.composer
 php:
   - 5.5
   - 5.6
   - 7.0
 install:
-  - export PATH=$PATH:~/.composer/vendor/bin
-  - which php-cs-fixer || composer global require fabpot/php-cs-fixer
   - composer --no-interaction install
 script:
   - vendor/bin/phpunit
-  - php-cs-fixer fix --dry-run -v --diff
+  - vendor/bin/php-cs-fixer fix --dry-run -v --diff
