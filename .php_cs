@@ -1,4 +1,11 @@
 <?php
-
-$finder = \PhpCsFixer\Finder::create()->in(__DIR__);
-return \PhpCsFixer\Config::create()->setFinder($finder);
+$config = \PhpCsFixer\Config::create()
+->setFinder(
+    PhpCsFixer\Finder::create()
+    ->exclude('vendor')
+    ->in(__DIR__)
+);
+\PhpCsFixer\FixerFactory::create()
+->registerBuiltInFixers()
+->useRuleSet(new \PhpCsFixer\RuleSet($config->getRules()));
+return $config;
