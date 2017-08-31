@@ -14,7 +14,7 @@ class MyArrayValue extends \Dxw\Iguana\Value\ArrayBase
     }
 }
 
-class Value_ArrayBase_Test extends PHPUnit_Framework_TestCase
+class Value_ArrayBase_Test extends \PHPUnit\Framework\TestCase
 {
     public function testOffsetExists()
     {

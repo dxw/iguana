@@ -1,6 +1,6 @@
 <?php
 
-class Value_Cookie_Test extends PHPUnit_Framework_TestCase
+class Value_Cookie_Test extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

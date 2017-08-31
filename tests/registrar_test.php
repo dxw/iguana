@@ -18,7 +18,7 @@ class MyUnregisterable
     }
 }
 
-class Registrar_Test extends PHPUnit_Framework_TestCase
+class Registrar_Test extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
