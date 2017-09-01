@@ -4,11 +4,16 @@ namespace Dxw\Iguana;
 
 class Registrar
 {
+    /** @var self */
     protected static $singleton;
+    /** @var array */
     protected $di;
+    /** @var string */
+    protected $namespace;
 
     protected function __construct()
     {
+        $this->namespace = '';
         $this->di = [];
 
         $this->setNamespace('Dxw\\Iguana');
@@ -18,15 +23,21 @@ class Registrar
         $this->addInstance(new \Dxw\Iguana\Value\Cookie());
     }
 
-    public function di(/* string */ $path, /* string */ $namespace)
+    /** @return void */
+    public function di(string $path, string $namespace)
     {
         $this->setNamespace($namespace);
 
-        call_user_func(function ($registrar) use ($path) {
-            require $path;
-        }, $this);
+        call_user_func(
+            /** @return void */
+            function ($registrar) use ($path) {
+                require $path;
+            },
+            $this
+        );
     }
 
+    /** @return void */
     public function addInstance($class, $instance=null)
     {
         // Shorthand
@@ -39,6 +50,7 @@ class Registrar
         $this->di[$this->namespace][$class] = $instance;
     }
 
+    /** @return mixed */
     public function getInstance($class)
     {
         if (!isset($this->di[$this->namespace][$class])) {
@@ -52,6 +64,7 @@ class Registrar
         return $this->di[$this->namespace][$class];
     }
 
+    /** @return void */
     public function register()
     {
         foreach ($this->di as $classes) {
@@ -63,7 +76,7 @@ class Registrar
         }
     }
 
-    public static function getSingleton()
+    public static function getSingleton(): self
     {
         if (!isset(self::$singleton)) {
             self::$singleton = new self();
@@ -72,6 +85,7 @@ class Registrar
         return self::$singleton;
     }
 
+    /** @return void */
     public function setNamespace($namespace)
     {
         $this->namespace = $namespace;

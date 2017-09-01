@@ -9,8 +9,9 @@ class MyArrayValue extends \Dxw\Iguana\Value\ArrayBase
         return $instance;
     }
 
-    protected function getDefault()
+    protected function getDefault(): array
     {
+        return [];
     }
 }
 

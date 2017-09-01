@@ -4,9 +4,10 @@ namespace Dxw\Iguana\Value;
 
 abstract class ArrayBase implements \ArrayAccess
 {
+    /** @var array */
     protected $value;
 
-    abstract protected function getDefault() /* : array */;
+    abstract protected function getDefault(): array;
 
     final public function __construct(array $value=null)
     {
@@ -17,7 +18,7 @@ abstract class ArrayBase implements \ArrayAccess
         }
     }
 
-    final public function offsetExists($offset)
+    final public function offsetExists($offset): bool
     {
         return isset($this->value[$offset]);
     }

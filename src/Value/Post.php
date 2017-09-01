@@ -4,8 +4,8 @@ namespace Dxw\Iguana\Value;
 
 class Post extends ArrayBase
 {
-    protected function getDefault()
+    protected function getDefault(): array
     {
-        return stripslashes_deep($_POST);
+        return \stripslashes_deep($_POST);
     }
 }

@@ -4,8 +4,8 @@ namespace Dxw\Iguana\Value;
 
 class Cookie extends ArrayBase
 {
-    protected function getDefault()
+    protected function getDefault(): array
     {
-        return stripslashes_deep($_COOKIE);
+        return \stripslashes_deep($_COOKIE);
     }
 }

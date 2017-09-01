@@ -4,7 +4,7 @@ namespace Dxw\Iguana;
 
 class Init
 {
-    public static function init(/* string */ $dir, /* string */ $namespace)
+    public static function init(string $dir, string $namespace): Registrar
     {
         $loader = new \Aura\Autoload\Loader();
         $loader->register();
