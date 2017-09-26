@@ -8,4 +8,14 @@
     <projectFiles>
         <directory name="src" />
     </projectFiles>
+    <issueHandlers>
+      <UndefinedFunction>
+        <errorLevel type="suppress">
+          <file name="src/Value/Cookie.php"/>
+          <file name="src/Value/Get.php"/>
+          <file name="src/Value/Post.php"/>
+          <file name="src/Value/Server.php"/>
+        </errorLevel>
+      </UndefinedFunction>
+    </issueHandlers>
 </psalm>
