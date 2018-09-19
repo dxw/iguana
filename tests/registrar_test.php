@@ -199,4 +199,21 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals(0, $called);
     }
+
+    public function testRegisterMixedNamespaces()
+    {
+        $registrar = \Dxw\Iguana\Registrar::getSingleton();
+
+        $registrar->setNamespace('meow');
+        $registrar->addInstance('MyRegisterable', new \MyRegisterable());
+        $registrar->setNamespace('woof');
+        $registrar->addInstance('MyRegisterable', new \MyRegisterable());
+
+        global $called;
+        $called = 0;
+
+        $registrar->register();
+
+        $this->assertEquals(1, $called);
+    }
 }

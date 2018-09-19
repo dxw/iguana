@@ -54,11 +54,9 @@ class Registrar
 
     public function register()
     {
-        foreach ($this->di as $classes) {
-            foreach ($classes as $instance) {
-                if ($instance instanceof \Dxw\Iguana\Registerable) {
-                    $instance->register();
-                }
+        foreach ($this->di[$this->namespace] as $instance) {
+            if ($instance instanceof \Dxw\Iguana\Registerable) {
+                $instance->register();
             }
         }
     }
