@@ -4,6 +4,7 @@ namespace Dxw\Iguana;
 
 class Registrar
 {
+    protected $namespace;
     protected static $singleton;
     protected $di;
 
