@@ -4,8 +4,7 @@ class MyRegisterable implements \Dxw\Iguana\Registerable
 {
     public function register()
     {
-        global $called;
-        ++$called;
+        ++$GLOBALS['called'];
     }
 }
 
@@ -13,8 +12,7 @@ class MyUnregisterable
 {
     public function register()
     {
-        global $called;
-        ++$called;
+        ++$GLOBALS['called'];
     }
 }
 
@@ -67,16 +65,15 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
 
         $file = \org\bovigo\vfs\vfsStream::setup()->url().'/di.php';
 
-        file_put_contents($file, '<?php global $called, $instance; $called++; $instance = $registrar;');
+        file_put_contents($file, '<?php $GLOBALS["called"]++; $GLOBALS["instance"] = $registrar;');
 
-        global $called, $instance;
-        $called = 0;
-        $instance = null;
+        $GLOBALS['called'] = 0;
+        $GLOBALS['instance'] = null;
 
         $registrar->di($file, 'My\\Namespace');
 
-        $this->assertEquals(1, $called);
-        $this->assertSame($registrar, $instance);
+        $this->assertEquals(1, $GLOBALS['called']);
+        $this->assertSame($registrar, $GLOBALS['instance']);
     }
 
     public function testDiMixedNamespaces()
@@ -178,12 +175,11 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
 
         $registrar->addInstance('MyRegisterable', new \MyRegisterable());
 
-        global $called;
-        $called = 0;
+        $GLOBALS['called'] = 0;
 
         $registrar->register();
 
-        $this->assertEquals(1, $called);
+        $this->assertEquals(1, $GLOBALS['called']);
     }
 
     public function testRegisterDoesNotCallUnregisterable()
@@ -192,12 +188,11 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
 
         $registrar->addInstance('MyUnregisterable', new \MyUnregisterable());
 
-        global $called;
-        $called = 0;
+        $GLOBALS['called'] = 0;
 
         $registrar->register();
 
-        $this->assertEquals(0, $called);
+        $this->assertEquals(0, $GLOBALS['called']);
     }
 
     public function testRegisterMixedNamespaces()
@@ -209,11 +204,10 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
         $registrar->setNamespace('woof');
         $registrar->addInstance('MyRegisterable', new \MyRegisterable());
 
-        global $called;
-        $called = 0;
+        $GLOBALS['called'] = 0;
 
         $registrar->register();
 
-        $this->assertEquals(1, $called);
+        $this->assertEquals(1, $GLOBALS['called']);
     }
 }
