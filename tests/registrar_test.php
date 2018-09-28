@@ -1,27 +1,32 @@
 <?php
 
-class MyRegisterable implements \Dxw\Iguana\Registerable
-{
-    public function register()
-    {
-        global $called;
-        ++$called;
-    }
-}
-
 class MyUnregisterable
 {
+    public function __construct(string $name = null)
+    {
+        $this->name = $name;
+    }
+
     public function register()
     {
-        global $called;
-        ++$called;
+        if (!isset($GLOBALS['called'][$this->name])) {
+            $GLOBALS['called'][$this->name] = 0;
+        }
+
+        $GLOBALS['called'][$this->name] += 1;
     }
 }
 
-class Registrar_Test extends PHPUnit_Framework_TestCase
+class MyRegisterable extends MyUnregisterable implements \Dxw\Iguana\Registerable
+{
+}
+
+class Registrar_Test extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
+        $GLOBALS['called'] = [];
+
         \WP_Mock::setUp();
 
         \WP_Mock::wpFunction('stripslashes_deep', [
@@ -67,16 +72,15 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
 
         $file = \org\bovigo\vfs\vfsStream::setup()->url().'/di.php';
 
-        file_put_contents($file, '<?php global $called, $instance; $called++; $instance = $registrar;');
+        file_put_contents($file, '<?php $GLOBALS["fileExecuted"]++; $GLOBALS["instance"] = $registrar;');
 
-        global $called, $instance;
-        $called = 0;
-        $instance = null;
+        $GLOBALS['fileExecuted'] = null;
+        $GLOBALS['instance'] = null;
 
         $registrar->di($file, 'My\\Namespace');
 
-        $this->assertEquals(1, $called);
-        $this->assertSame($registrar, $instance);
+        $this->assertEquals(1, $GLOBALS['fileExecuted']);
+        $this->assertSame($registrar, $GLOBALS['instance']);
     }
 
     public function testDiMixedNamespaces()
@@ -176,27 +180,35 @@ class Registrar_Test extends PHPUnit_Framework_TestCase
     {
         $registrar = \Dxw\Iguana\Registrar::getSingleton();
 
-        $registrar->addInstance('MyRegisterable', new \MyRegisterable());
-
-        global $called;
-        $called = 0;
+        $registrar->addInstance('MyRegisterable', new \MyRegisterable('a'));
 
         $registrar->register();
 
-        $this->assertEquals(1, $called);
+        $this->assertEquals(['a' => 1], $GLOBALS['called']);
     }
 
     public function testRegisterDoesNotCallUnregisterable()
     {
         $registrar = \Dxw\Iguana\Registrar::getSingleton();
 
-        $registrar->addInstance('MyUnregisterable', new \MyUnregisterable());
-
-        global $called;
-        $called = 0;
+        $registrar->addInstance('MyUnregisterable', new \MyUnregisterable('a'));
 
         $registrar->register();
 
-        $this->assertEquals(0, $called);
+        $this->assertEquals([], $GLOBALS['called']);
+    }
+
+    public function testRegisterMixedNamespaces()
+    {
+        $registrar = \Dxw\Iguana\Registrar::getSingleton();
+
+        $registrar->setNamespace('meow');
+        $registrar->addInstance('MyRegisterable', new \MyRegisterable('a'));
+        $registrar->setNamespace('woof');
+        $registrar->addInstance('MyRegisterable', new \MyRegisterable('b'));
+
+        $registrar->register();
+
+        $this->assertEquals(['b' => 1], $GLOBALS['called']);
     }
 }
