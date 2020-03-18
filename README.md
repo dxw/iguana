@@ -4,11 +4,8 @@ An extensible theme and plugin framework for WordPress.
 
 ## Components
 
-Iguana is split into several components. The idea is that **iguana** and **iguana-theme** are the two core libraries that will seldom change, while new features will be added to **iguana-extras** on a regular basis.
-
 - **iguana** is the library that allows themes and plugins to set up autoloading and dependency injection without nearly as much boilerplate code
 - [iguana-theme](https://github.com/dxw/iguana-theme) builds on iguana and allows themes to register helper functions and use template layouts
-- [iguana-extras](https://github.com/dxw/iguana-extras) builds on iguana and iguana-theme and provides a bunch of little components for plugins and themes
 
 ## Theme templates that use Iguana
 
@@ -16,11 +13,13 @@ Iguana is split into several components. The idea is that **iguana** and **iguan
 
 ## Installation
 
-Add the library to your theme:
+Add the iguana library to your theme or plugin:
 
-    $ composer require dxw/iguana
+```
+$ composer require dxw/iguana
+```
 
-Add these two lines to `template/functions.php` (modify appropriately if `functions.php` isn't in a subdirectory):
+Add these two lines to `templates/functions.php` (modify appropriately if `functions.php` isn't in a subdirectory):
 
 ```
 $registrar = require __DIR__.'/../app/load.php';
@@ -34,10 +33,10 @@ Add a new file called `app/load.php`:
 
 require __DIR__.'/../vendor.phar';
 
-return \Dxw\Iguana\Init::init(__DIR__, 'Dxw\\MyTheme');
+return \Dxw\Iguana\Init::init(__DIR__, 'MyTheme');
 ```
 
-(Replace `Dxw\\MyTheme` with the namespace of your own application.)
+(Replace `MyTheme` with the namespace of your own theme/plugin.)
 
 Add a new file called `app/di.php`:
 
@@ -50,9 +49,9 @@ It can start out blank:
 But eventually it will contain the code necessary to construct the dependency graph of your code, i.e.:
 
 ```
-$registrar->addInstance(new \Dxw\MyTheme\MyClass());
-$registrar->addInstance(new \Dxw\MyTheme\MyOtherClass(
-    $registrar->getInstance(Dxw\MyTheme\MyClass::class)
+$registrar->addInstance(new \MyTheme\MyClass());
+$registrar->addInstance(new \MyTheme\MyOtherClass(
+    $registrar->getInstance(\MyTheme\MyClass::class)
 ));
 ```
 
@@ -60,12 +59,12 @@ $registrar->addInstance(new \Dxw\MyTheme\MyOtherClass(
 
 ### For your dependency-injected class structure
 
-Your classes can automatically register themselves (or rather, indicate that they need to be registered):
+Your classes can indicate that they have code that needs running (this is run on the call to `$registrar->register()` in `functions.php`):
 
 ```
 <?php
 
-namespace Dxw\MyTheme;
+namespace MyTheme;
 
 class MyClass implements \Dxw\Iguana\Registerable
 {
@@ -80,11 +79,11 @@ Any instance added to the registrar that implements `\Dxw\Iguana\Registerable` w
 
 This means you don't have to remember call the `register()` method somewhere after adding it to `app/di.php`.
 
-And moving the calls to `add_filter()`, 'register_xyz()`, etc out from the constructor makes it much easier to test.
+And moving the calls to `add_filter()`, 'register_xyz()`, etc out of the constructor makes unit testing easier.
 
 ### For your background processes and cron jobs
 
-If you're running a background process or cron job outside of WordPress, you can `$registrar = require 'path/to/load.php';` to load all the code in your theme/plugin. If you need to register it, you can do it piece-by-piece, or you can `$registrar->register();` to register it all at once.
+If you're running a background process or cron job outside of WordPress, you can `$registrar = require('path/to/load.php');` to load all the code in your theme/plugin. If you need to register it, you can do it piece-by-piece, or you can `$registrar->register();` to register it all at once.
 
 ## Licence
 
