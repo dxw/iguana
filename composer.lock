@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca0f2d12e0570fb4bfd55bb162d06c8e",
+    "content-hash": "8a7f9e8e564dd3f292dafe6889f51b9d",
     "packages": [
         {
             "name": "aura/autoload",
@@ -1524,6 +1524,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-08-09T05:50:03+00:00"
         },
         {
