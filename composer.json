@@ -4,11 +4,6 @@
     "type": "library",
     "version": "1.2.0",
     "license": "MIT",
-    "config": {
-      "platform": {
-        "php": "7.2.24"
-      }
-    },
     "autoload": {
         "psr-4": {
             "Dxw\\Iguana\\": "src/"
