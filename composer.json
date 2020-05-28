@@ -2,13 +2,8 @@
     "name": "dxw/iguana",
     "homepage": "https://github.com/dxw/iguana",
     "type": "library",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "license": "MIT",
-    "config": {
-      "platform": {
-        "php": "7.2.24"
-      }
-    },
     "autoload": {
         "psr-4": {
             "Dxw\\Iguana\\": "src/"
