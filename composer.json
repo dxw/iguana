@@ -2,7 +2,7 @@
     "name": "dxw/iguana",
     "homepage": "https://github.com/dxw/iguana",
     "type": "library",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "license": "MIT",
     "autoload": {
         "psr-4": {
