@@ -17,6 +17,6 @@
         "phpunit/phpunit": "^9.6",
         "mikey179/vfsstream": "^1.6",
         "10up/wp_mock": "^0.3.0",
-        "friendsofphp/php-cs-fixer": "^2.13"
+        "dxw/php-cs-fixer-config": "^2.0"
     }
 }

@@ -4,5 +4,5 @@ namespace Dxw\Iguana;
 
 interface Registerable
 {
-    public function register();
+	public function register();
 }
