@@ -23,7 +23,7 @@ class MyRegisterable extends MyUnregisterable implements \Dxw\Iguana\Registerabl
 
 class Registrar_Test extends \PHPUnit\Framework\TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $GLOBALS['called'] = [];
 
@@ -36,7 +36,7 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         \WP_Mock::tearDown();
 
