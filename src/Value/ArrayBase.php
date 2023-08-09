@@ -17,22 +17,26 @@ abstract class ArrayBase implements \ArrayAccess
 		}
 	}
 
-	final public function offsetExists($offset)
+	final public function offsetExists($offset): bool
 	{
 		return isset($this->value[$offset]);
 	}
 
+	// PHP8 requires this method to have a return type of mixed
+	// But that is not PHP7-compatible
+	// So this attribute suppresses the warning for now
+	#[\ReturnTypeWillChange]
 	final public function offsetGet($offset)
 	{
 		return $this->value[$offset];
 	}
 
-	final public function offsetSet($offset, $value)
+	final public function offsetSet($offset, $value): void
 	{
 		throw new \Exception('cannot modify superglobals');
 	}
 
-	final public function offsetUnset($offset)
+	final public function offsetUnset($offset): void
 	{
 		throw new \Exception('cannot modify superglobals');
 	}
