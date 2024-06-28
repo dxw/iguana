@@ -31,7 +31,6 @@ abstract class ArrayBase implements \ArrayAccess
 		return $this->value[$offset];
 	}
 
-	#[\ReturnTypeWillChange]
 	final public function offsetUnset($offset): void
 	{
 		throw new \Exception('cannot modify superglobals');
