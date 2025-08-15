@@ -28,7 +28,7 @@ class Registrar
 		}, $this);
 	}
 
-	public function addInstance($class, $instance=null)
+	public function addInstance($class, $instance = null)
 	{
 		// Shorthand
 		// ->addInstance(new \MyClass());
