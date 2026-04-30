@@ -45,8 +45,7 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
 		$cls = new ReflectionClass(\Dxw\Iguana\Registrar::class);
 
 		$property = $cls->getProperty('singleton');
-		$property->setAccessible(true);
-		$property->setValue(null);
+		$property->setValue(null, null);
 	}
 
 	public function testSingleton()
