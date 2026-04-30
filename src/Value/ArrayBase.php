@@ -8,7 +8,7 @@ abstract class ArrayBase implements \ArrayAccess
 
 	abstract protected function getDefault() /* : array */;
 
-	final public function __construct(array $value = null)
+	final public function __construct(?array $value = null)
 	{
 		if ($value === null) {
 			$this->value = $this->getDefault();
