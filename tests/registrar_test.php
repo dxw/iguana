@@ -4,7 +4,7 @@ class MyUnregisterable
 {
 	private $name;
 
-	public function __construct(string $name = null)
+	public function __construct(?string $name = null)
 	{
 		$this->name = $name;
 	}
@@ -45,8 +45,7 @@ class Registrar_Test extends \PHPUnit\Framework\TestCase
 		$cls = new ReflectionClass(\Dxw\Iguana\Registrar::class);
 
 		$property = $cls->getProperty('singleton');
-		$property->setAccessible(true);
-		$property->setValue(null);
+		$property->setValue(null, null);
 	}
 
 	public function testSingleton()
