@@ -4,22 +4,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.1] - 2026-10-26
+
+### Removed
+
+- Suport for PHP versions below 8.3
+
 ## [1.4.0] - 2026-09-02
+
 ### Added
+
 - Added PHP versions 8.3, 8.4, 8.5 to the CI/CD pipeline
 
 ### Changed
+
 - Resolved set-output deprecation in GitHub action
 
-### Removed
+### Removed
+
 - Support for PHP version 7.4 and 8.0
 
 ## [1.3.2] - 2023-08-10
+
 ### Added
+
 - ArrayAccess return types for PHP 8 compatibility.
 
 ## [1.3.1] - 2023-08-09
+
 ### Removed
+
 - Version tag in `composer.json`
 
 ## [1.3.0] - 2023-08-09
