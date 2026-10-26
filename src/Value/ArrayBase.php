@@ -28,7 +28,11 @@ abstract class ArrayBase implements \ArrayAccess
 	#[\ReturnTypeWillChange]
 	final public function offsetGet($offset)
 	{
-		return $this->value[$offset];
+		if ($this->offsetExists($offset)) {
+			return $this->value[$offset];
+		} else {
+			return false;
+		}
 	}
 
 	final public function offsetSet($offset, $value): void
